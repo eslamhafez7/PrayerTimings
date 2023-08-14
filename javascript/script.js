@@ -94,8 +94,9 @@ axios.get(apiLink, {
 
     fullYearGregorian.innerHTML = response.data.data.date.gregorian.date;
     fullYearHijri.innerHTML = response.data.data.date.hijri.date;
+    
+    cityName.innerText = selectElement.value;
 }).catch((error) => alert(error))
-cityName.innerText = selectElement.value;
 }
 getPrayersTimings("Al Buḩayrah");
 
