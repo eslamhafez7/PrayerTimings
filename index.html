@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Challenge - Prayer Timings</title>
+    <link rel="stylesheet" href="sweetalert2.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="city-info" style="padding-bottom: 30px;">
+            <h1 id="city-name">القاهرة</h1>
+            <div class="dates">
+                <div class="border">
+                    <p  id="date"></p>
+                    <span class="full-year"></span>
+                </div>
+                <div>
+                    <p  id="hijri-date"></p>
+                    <span class="full-hijri-year"></span>
+                </div>
+            </div>
+        </div>
+        <hr style="border-color: #05001c; border-radius: 10px;">
+
+
+        <div class="pray">
+            <div class="box">
+                <p class="fajr">الفجر</p>
+                <span class="fajr-time"></span>
+            </div>
+            <div class="box">
+                <p class="sunrise">الشروق</p>
+                <span class="sunrise-time"></span>
+            </div>
+            <div class="box">
+                <p class="dhuhr">الظهر</p>
+                <span class="dhuhr-time"></span>
+            </div>
+            <div class="box">
+                <p class="asr">العصر</p>
+                <span class="asr-time"></span>
+            </div>
+            <div class="box">
+                <p class="maghrib">المغرب</p>
+                <span class="maghrib-time"></span>
+            </div>
+            <div class="box">
+                <p class="isha">العشاء</p>
+                <span class="isha-time"></span>
+            </div>
+        </div>  
+        <div class="change-city">
+            <select></select>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="sweetalert2.all.min.js"></script>
+    <script src="script.js" type="module"></script>
+</body>
+</html>
