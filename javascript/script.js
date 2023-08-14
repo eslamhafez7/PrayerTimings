@@ -1,5 +1,5 @@
 
-let apiLink = "http://api.aladhan.com/v1/timingsByCity";
+let apiLink = "https://api.aladhan.com/v1/timingsByCity";
 let container = document.querySelector(".container");
 let boxContainer = document.querySelector(".prayname");
 let fajrtime = document.querySelector(".fajr-time");
