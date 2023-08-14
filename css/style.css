@@ -77,6 +77,7 @@ body {
     border: 1px solid #000;
     outline: none;
     border-radius: 5px;
+    cursor: pointer;
 }
 .english {
     cursor: pointer;
@@ -94,6 +95,13 @@ body {
     display: block;
     font-size: 20px;
     font-weight: bold;
+}
+.time-now {
+    position: fixed;
+    top: 1rem;
+    left: 2rem;
+    color: #000;
+    direction: ltr;
 }
 @media screen and (max-width: 450px) {
     .container {

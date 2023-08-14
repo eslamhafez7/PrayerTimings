@@ -55,7 +55,6 @@ selectElement.addEventListener("change", () => {
         getPrayersTimings(selectedCity.iso)
     }
 });
-
 cities.forEach(city => {
     let content = `
         <option value="${city.name}">${city.name}</option>
@@ -64,16 +63,90 @@ cities.forEach(city => {
 });
 
 
-function getPrayersTimings(cityFlag) {
+function getPrayersTimings(cityISO) {
+    let parms = {
+        country: "EG",
+        city: cityISO
+    };
 
-let parms = {
-    country: "EG",
-    city: cityFlag
+    let queryParams = new URLSearchParams(parms);
+
+    fetch(`${apiLink}?${queryParams}`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            fajrtime.innerHTML = data.data.timings.Fajr;
+            sunrisetime.innerHTML = data.data.timings.Sunrise;
+            dhuhrtime.innerHTML = data.data.timings.Dhuhr;
+            asrtime.innerHTML = data.data.timings.Asr;
+            maghribtime.innerHTML = data.data.timings.Maghrib;
+            ishatime.innerHTML = data.data.timings.Isha;
+
+            let month = data.data.date.hijri.month.ar;
+            let day = data.data.date.hijri.day;
+            let dayname = data.data.date.hijri.weekday.ar;
+            hijriDate.innerHTML = `${dayname} ${day} ${month}`;
+
+            let gregorianDayName = data.data.date.gregorian.weekday.en;
+            let gregorianDayNumber = data.data.date.gregorian.day;
+            let gregorianMonth = data.data.date.gregorian.month.en;
+            gDate.innerHTML = `${gregorianDayName} ${gregorianDayNumber} ${gregorianMonth}`;
+
+            fullYearGregorian.innerHTML = data.data.date.gregorian.date;
+            fullYearHijri.innerHTML = data.data.date.hijri.date;
+
+            cityName.innerText = selectElement.value;
+        })
+        .catch(error => alert(error));
 }
 
-axios.get(apiLink, {
-    params: parms
-})
+getPrayersTimings("Al Buḩayrah");
+
+function displayMessage() {
+    Swal.fire({
+        position: 'top',
+        icon: 'info',
+        title: 'صلي علي سيدنا محمد ﷺ',
+        showConfirmButton: false,
+        timer: 2000
+    });
+}
+setInterval(displayMessage, 20000);
+
+function getTime() {
+    let now = new Date;
+    let hours = now.getHours()
+    let minutes = now.getMinutes()
+    let seconds = now.getSeconds()
+    let AmOrPm = hours > 12 ? "PM" : "AM";
+    hours = hours % 12 || 12;
+    document.querySelector(".time-now").innerHTML = `${formatComponent(hours)}:${formatComponent(minutes)}:${formatComponent(seconds)} ${AmOrPm}`
+}
+
+function formatComponent(component) {
+    return component < 10 ? `0${component}` : component;
+}
+setInterval(getTime, 1000);
+
+
+
+
+/*
+    Using axios
+
+function getPrayersTimings(cityISO) {
+    let parms = {
+        country: "EG",
+        city: cityISO
+    };
+
+    axios.get(apiLink, {
+        params: parms
+    })
 .then((response) => {
     fajrtime.innerHTML = response.data.data.timings.Fajr;
     sunrisetime.innerHTML = response.data.data.timings.Sunrise;
@@ -98,15 +171,4 @@ axios.get(apiLink, {
     cityName.innerText = selectElement.value;
 }).catch((error) => alert(error))
 }
-getPrayersTimings("Al Buḩayrah");
-
-function displayMessage() {
-    Swal.fire({
-        position: 'top',
-        icon: 'info',
-        title: 'صلي علي سيدنا محمد ﷺ',
-        showConfirmButton: false,
-        timer: 2000
-    });
-}
-setInterval(displayMessage, 20000);
+*/
