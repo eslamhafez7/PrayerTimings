@@ -100,7 +100,9 @@ body {
     position: fixed;
     top: 1rem;
     left: 2rem;
-    color: #000;
+    background: linear-gradient(45deg, #240165, #05001c);
+    color: #fff;
+    padding: 0 10px;
     direction: ltr;
 }
 @media screen and (max-width: 450px) {
@@ -122,7 +124,7 @@ body {
     }
     #date,
     #hijri-date {
-        font-size: 20px;
+        font-size: 19px;
         text-align: center;
     }
     .border {
