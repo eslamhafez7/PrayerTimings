@@ -66,45 +66,36 @@ cities.forEach(city => {
 
 function getPrayersTimings(cityFlag) {
 
-
-let params = {
+let parms = {
     country: "EG",
     city: cityFlag
-};
+}
 
-fetch(apiLink + "?" + new URLSearchParams(params))
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        return response.json();
-    })
-    .then(data => {
-        fajrtime.innerHTML = data.data.timings.Fajr;
-        sunrisetime.innerHTML = data.data.timings.Sunrise;
-        dhuhrtime.innerHTML = data.data.timings.Dhuhr;
-        asrtime.innerHTML = data.data.timings.Asr;
-        maghribtime.innerHTML = data.data.timings.Maghrib;
-        ishatime.innerHTML = data.data.timings.Isha;
+axios.get(apiLink, {
+    params: parms
+})
+.then((response) => {
+    fajrtime.innerHTML = response.data.data.timings.Fajr;
+    sunrisetime.innerHTML = response.data.data.timings.Sunrise;
+    dhuhrtime.innerHTML = response.data.data.timings.Dhuhr;
+    asrtime.innerHTML = response.data.data.timings.Asr;
+    maghribtime.innerHTML = response.data.data.timings.Maghrib;
+    ishatime.innerHTML = response.data.data.timings.Isha;
 
-        let month = data.data.date.hijri.month.ar;
-        let day = data.data.date.hijri.day;
-        let dayname = data.data.date.hijri.weekday.ar;
-        hijriDate.innerHTML = `${dayname} ${day} ${month}`;
+    let month = response.data.data.date.hijri.month.ar;
+    let day = response.data.data.date.hijri.day;
+    let dayname = response.data.data.date.hijri.weekday.ar;
+    hijriDate.innerHTML = `${dayname} ${day} ${month}`;
 
-        let gregorianDayName = data.data.date.gregorian.weekday.en;
-        let gregorianDayNumber = data.data.date.gregorian.day;
-        let gregorianMonth = data.data.date.gregorian.month.en;
-        gDate.innerHTML = `${gregorianDayName} ${gregorianDayNumber} ${gregorianMonth}`;
+    let gregorianDayName = response.data.data.date.gregorian.weekday.en;
+    let gregorianDayNumber = response.data.data.date.gregorian.day;
+    let gregorianMonth = response.data.data.date.gregorian.month.en;
+    gDate.innerHTML = `${gregorianDayName} ${gregorianDayNumber} ${gregorianMonth}`
 
-        fullYearGregorian.innerHTML = data.data.date.gregorian.date;
-        fullYearHijri.innerHTML = data.data.date.hijri.date;
-
-        cityName.innerText = selectElement.value;
-    })
-    .catch(error => {
-        alert('There was a problem with the fetch operation: ' + error.message);
-    });
+    fullYearGregorian.innerHTML = response.data.data.date.gregorian.date;
+    fullYearHijri.innerHTML = response.data.data.date.hijri.date;
+}).catch((error) => alert(error))
+cityName.innerText = selectElement.value;
 }
 getPrayersTimings("Al Buḩayrah");
 
