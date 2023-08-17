@@ -43,7 +43,7 @@ let cities = [
     { name: "كفر الشيخ", iso: "Kafr ash Shaykh" },
     { name: "قنا", iso: "Qinā" },
     { name: "شمال سيناء", iso: "Shamāl Sīnā'" },
-    { name: "سوهاج", iso: "Sūhāj" }
+    { name: "سوهاج", iso: "Sohaj" }
 ];
 
 
@@ -101,7 +101,7 @@ function getPrayersTimings(cityISO) {
 
             cityName.innerText = selectElement.value;
         })
-        .catch(error => alert(error));
+        .catch(error => console.log(error));
 }
 
 getPrayersTimings("Al Buḩayrah");
